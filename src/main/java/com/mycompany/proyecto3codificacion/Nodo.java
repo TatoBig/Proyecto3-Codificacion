@@ -10,7 +10,7 @@ package com.mycompany.proyecto3codificacion;
  * @author aniba
  */
 public class Nodo {
-     private Integer dato;
+    private Integer dato;
     private char letra;
     private Nodo izq;
     private Nodo der;

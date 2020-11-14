@@ -27,7 +27,7 @@ public class Arbol {
     public Arbol(Nodo raizArbol) {
         raiz = raizArbol;
     }
-
+    //Mira pue tato, aca ya esta el arbol el char es la letra que se tiene y el integer es la cantidad de veces que aparece dicha letra.
     public void insertar(char letra, Integer d) {
         Nodo nuevo = new Nodo(letra, d);
         if (raiz == null) {
@@ -50,7 +50,6 @@ public class Arbol {
             }
         }
     }
-
     public String toString() {
         return raiz.toString();
     }
