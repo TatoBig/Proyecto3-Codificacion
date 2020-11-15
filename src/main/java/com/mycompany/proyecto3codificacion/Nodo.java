@@ -14,6 +14,8 @@ public class Nodo {
     private char letra;
     private Nodo izq;
     private Nodo der;
+    private String codigo;
+
 
     public Integer getDato() {
         return dato;
@@ -53,7 +55,16 @@ public class Nodo {
         izq = null;
         der = null;
     }
+    public Nodo(){
+        
+    }
+    public String getCodigo() {
+        return codigo;
+    }
 
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
     @Override
     public String toString() {
         return letra + ":" + dato;

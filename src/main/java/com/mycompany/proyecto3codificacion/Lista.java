@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Lista {
     
-     private ArrayList<Letras> letras=new ArrayList<>();
+    private ArrayList<Letras> letras=new ArrayList<>();
     private ArrayList<Letras> MenorMayor=new ArrayList<>();
     private int mayor=0;
     
@@ -88,5 +88,8 @@ public class Lista {
         letras.clear();
         MenorMayor.clear();
     }
-    
+    public ArrayList getLista(){
+        ordenar();
+        return this.MenorMayor;
+    }
 }

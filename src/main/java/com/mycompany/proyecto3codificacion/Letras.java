@@ -12,6 +12,7 @@ package com.mycompany.proyecto3codificacion;
 public class Letras {
     private char letra;
     private Integer repeticiones;
+    private String codigo;
     Letras()
     {
         this.repeticiones=0;
@@ -31,5 +32,13 @@ public class Letras {
 
     public void setRepeticiones() {
         this.repeticiones++;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 }

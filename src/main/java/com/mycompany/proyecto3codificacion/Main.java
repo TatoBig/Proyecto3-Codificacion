@@ -16,8 +16,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Main extends javax.swing.JFrame {
 
     Codificador codificador = new Codificador();
-    
-    
+    String textoCodificadoBits,textoOriginal,textoCodificadoBytes;
+
     public Main() {
         initComponents();
     }
@@ -34,7 +34,12 @@ public class Main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        textoObtenido = new javax.swing.JTextArea();
+        textoObtenidoOriginal = new javax.swing.JTextArea();
+        codificar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        textoObtenidoBits = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        textoObtenidoBytes = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,9 +52,24 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        textoObtenido.setColumns(20);
-        textoObtenido.setRows(5);
-        jScrollPane1.setViewportView(textoObtenido);
+        textoObtenidoOriginal.setColumns(20);
+        textoObtenidoOriginal.setRows(5);
+        jScrollPane1.setViewportView(textoObtenidoOriginal);
+
+        codificar.setText("Codificar a bits");
+        codificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codificarActionPerformed(evt);
+            }
+        });
+
+        textoObtenidoBits.setColumns(20);
+        textoObtenidoBits.setRows(5);
+        jScrollPane2.setViewportView(textoObtenidoBits);
+
+        textoObtenidoBytes.setColumns(20);
+        textoObtenidoBytes.setRows(5);
+        jScrollPane3.setViewportView(textoObtenidoBytes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,24 +77,38 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(codificar)
+                        .addComponent(jLabel1)
+                        .addComponent(jButton1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(codificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         pack();
@@ -89,11 +123,10 @@ public class Main extends javax.swing.JFrame {
             int result = fc.showOpenDialog(null);
             File f = fc.getSelectedFile();
             String ruta = f.getAbsolutePath();
-            String textoOriginal = "";
             if(ruta.endsWith("txt") || ruta.endsWith("TXT"))
             {
-                textoOriginal = codificador.obtenerTexto(ruta);
-                textoObtenido.setText(textoOriginal);
+                this.textoOriginal = codificador.obtenerTexto(ruta);
+                textoObtenidoOriginal.setText(textoOriginal);
                 System.out.println("Archivo de texto cargado correctamente");
             }
         } catch (Exception ex) {
@@ -101,6 +134,13 @@ public class Main extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void codificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codificarActionPerformed
+        textoCodificadoBits = codificador.obtenerCadenaBits(textoOriginal);
+        textoObtenidoBits.setText(textoCodificadoBits);
+        textoCodificadoBytes = codificador.obtenerCadenaBytes(textoCodificadoBits);
+        textoObtenidoBytes.setText(textoCodificadoBytes);
+    }//GEN-LAST:event_codificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,9 +178,14 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton codificar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea textoObtenido;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea textoObtenidoBits;
+    private javax.swing.JTextArea textoObtenidoBytes;
+    private javax.swing.JTextArea textoObtenidoOriginal;
     // End of variables declaration//GEN-END:variables
 }
