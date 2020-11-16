@@ -42,7 +42,7 @@ public class Arbol {
     //Mira pue tato, aca ya esta el arbol el char es la letra que se tiene y el integer es la cantidad de veces que aparece dicha letra.
     public void insertar(ArrayList<Letras> letrasFreq) {
         int n = letrasFreq.size();
-        PriorityQueue<Nodo> arbolHuffman = new PriorityQueue<Nodo>(n, new ImplementComparator());
+        PriorityQueue<Nodo> arbolHuffman = new PriorityQueue<Nodo>(n, new Comparador());
 
         for (int i = 0; i < n; i++) {
           Nodo nodo = new Nodo();
@@ -93,7 +93,7 @@ public class Arbol {
     obtenerCodigoBits(raiz.getDer(), cadena + "1");
   }
 }
-class ImplementComparator implements Comparator<Nodo> {
+class Comparador implements Comparator<Nodo> {
   public int compare(Nodo nodoIzq, Nodo nodoDer) {
     return nodoIzq.getDato()- nodoDer.getDato();
   }

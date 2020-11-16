@@ -6,6 +6,11 @@
 package com.mycompany.proyecto3codificacion;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -16,10 +21,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Main extends javax.swing.JFrame {
 
     Codificador codificador = new Codificador();
-    String textoCodificadoBits,textoOriginal,textoCodificadoBytes;
-
+    String textoCodificadoBits,textoOriginal,textoCodificadoBytes,textoDesCodificadoBits,textoDesCodificadoBytes,ruta;
+    boolean x=false,y=false;
+    
     public Main() {
         initComponents();
+        jButton4.setEnabled(false);
+        codificar1.setEnabled(false);
+        descomprimir1.setEnabled(false);
+        codificar.setEnabled(false);
     }
 
     /**
@@ -40,12 +50,21 @@ public class Main extends javax.swing.JFrame {
         textoObtenidoBits = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         textoObtenidoBytes = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        mostrarCodigo = new java.awt.List();
+        jButton4 = new javax.swing.JButton();
+        codificar1 = new javax.swing.JButton();
+        descomprimir1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Ingrese palabra a codificar");
 
-        jButton1.setText("Abrir archivo de texto a codificar");
+        jButton1.setText("Abrir archivo a comprimir o descomprimir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -56,7 +75,7 @@ public class Main extends javax.swing.JFrame {
         textoObtenidoOriginal.setRows(5);
         jScrollPane1.setViewportView(textoObtenidoOriginal);
 
-        codificar.setText("Codificar a bits");
+        codificar.setText("Comprimir");
         codificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 codificarActionPerformed(evt);
@@ -71,43 +90,129 @@ public class Main extends javax.swing.JFrame {
         textoObtenidoBytes.setRows(5);
         jScrollPane3.setViewportView(textoObtenidoBytes);
 
+        jLabel2.setText("Codigo Huffman Actual");
+
+        jButton2.setText("Generar Codigo Huffman");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Importar Codigo Nuevo");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        mostrarCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarCodigoActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Guardar Codigo Actual");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        codificar1.setText("Guardar Cadena Final");
+        codificar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codificar1ActionPerformed(evt);
+            }
+        });
+
+        descomprimir1.setText("Descomprimir");
+        descomprimir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descomprimir1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Cadena Bits");
+
+        jLabel4.setText("Cadena Final");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(codificar)
-                        .addComponent(jLabel1)
-                        .addComponent(jButton1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(codificar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(mostrarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(152, 152, 152))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(codificar)
+                            .addComponent(descomprimir1)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(jLabel3)
+                .addGap(188, 188, 188)
+                .addComponent(jLabel4)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(codificar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(7, 7, 7)
+                                        .addComponent(descomprimir1)))
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jButton4)
+                                    .addComponent(codificar1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(mostrarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(codificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -125,22 +230,89 @@ public class Main extends javax.swing.JFrame {
             String ruta = f.getAbsolutePath();
             if(ruta.endsWith("txt") || ruta.endsWith("TXT"))
             {
+                this.ruta = ruta;
                 this.textoOriginal = codificador.obtenerTexto(ruta);
                 textoObtenidoOriginal.setText(textoOriginal);
                 System.out.println("Archivo de texto cargado correctamente");
+                y=true;
+                descomprimir1.setEnabled(x&&y);
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void codificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codificarActionPerformed
-        textoCodificadoBits = codificador.obtenerCadenaBits(textoOriginal);
+        textoCodificadoBits = codificador.obtenerCadenaBits(textoObtenidoOriginal.getText());
         textoObtenidoBits.setText(textoCodificadoBits);
         textoCodificadoBytes = codificador.obtenerCadenaBytes(textoCodificadoBits);
         textoObtenidoBytes.setText(textoCodificadoBytes);
+        codificar1.setEnabled(true);
     }//GEN-LAST:event_codificarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        codificador.generarCodigo(textoObtenidoOriginal.getText());
+        mostrarListaHuffman();
+        jButton4.setEnabled(true);
+        x=true;
+        descomprimir1.setEnabled(x&&y);
+        codificar.setEnabled(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void mostrarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mostrarCodigoActionPerformed
+
+    private void codificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codificar1ActionPerformed
+        try {
+            codificador.guardarCadena(this.textoCodificadoBytes);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_codificar1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {
+            codificador.guardarCodigos();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            JFileChooser fc = new JFileChooser();
+            FileNameExtensionFilter filtro = new FileNameExtensionFilter("*data","DATA");
+            fc.setFileFilter(filtro);
+            fc.setFileSelectionMode( JFileChooser.FILES_ONLY);
+            int result = fc.showOpenDialog(null);
+            File f = fc.getSelectedFile();
+            String ruta = f.getAbsolutePath();
+            if(ruta.endsWith("data") || ruta.endsWith("DATA"))
+            {
+                codificador.importarCodigos(ruta);
+                mostrarListaHuffman();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        descomprimir1.setEnabled(true);
+        codificar.setEnabled(true);
+        jButton4.setEnabled(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void descomprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descomprimir1ActionPerformed
+        try {
+            textoDesCodificadoBits = codificador.descomprimirABits(ruta);
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        textoObtenidoBits.setText(textoDesCodificadoBits);
+        textoDesCodificadoBytes = codificador.descomprimirABytes(textoDesCodificadoBits);
+        textoObtenidoBytes.setText(textoDesCodificadoBytes);
+        codificar1.setEnabled(true);
+    }//GEN-LAST:event_descomprimir1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,19 +345,39 @@ public class Main extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Main().setVisible(true);
+                
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton codificar;
+    private javax.swing.JButton codificar1;
+    private javax.swing.JButton descomprimir1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private java.awt.List mostrarCodigo;
     private javax.swing.JTextArea textoObtenidoBits;
     private javax.swing.JTextArea textoObtenidoBytes;
     private javax.swing.JTextArea textoObtenidoOriginal;
     // End of variables declaration//GEN-END:variables
+
+   
+    private void mostrarListaHuffman() {
+        mostrarCodigo.clear();
+        ArrayList<Nodo> codigos = codificador.getCodigos();
+        for (int i = 0; i < codigos.size(); i++) {
+            mostrarCodigo.add("Caracter: " + codigos.get(i).getLetra() + " | Codigo: "+codigos.get(i).getCodigo());
+        }
+    }
 }
