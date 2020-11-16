@@ -5,12 +5,15 @@
  */
 package com.mycompany.proyecto3codificacion;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -27,10 +30,25 @@ public class Main extends javax.swing.JFrame {
     
     public Main() {
         initComponents();
-        jButton4.setEnabled(false);
-        codificar1.setEnabled(false);
-        descomprimir1.setEnabled(false);
-        codificar.setEnabled(false);
+        GuardarCodigoButton.setEnabled(false);
+        GuardarCadenaButton.setEnabled(false);
+        DescomprimirButton.setEnabled(false);
+        ComprimirButton.setEnabled(false);
+        ImageIcon GenerarImagen = new ImageIcon("boligrafo.png");
+         GenerarButton.setIcon(new ImageIcon(GenerarImagen.getImage()));
+         ImageIcon ImportarImagen = new ImageIcon("importar.png");
+         ImportarButton.setIcon(new ImageIcon(ImportarImagen.getImage()));
+         ImageIcon GuardarCodigoImagen = new ImageIcon("disquete.png");
+         GuardarCodigoButton.setIcon(new ImageIcon(GuardarCodigoImagen.getImage()));
+         ImageIcon GuardarCadenaImagen = new ImageIcon("disquete.png");
+         GuardarCadenaButton.setIcon(new ImageIcon(GuardarCadenaImagen.getImage()));
+         ImageIcon DescomprimirImagen = new ImageIcon("minimizar.png");
+         DescomprimirButton.setIcon(new ImageIcon(DescomprimirImagen.getImage()));
+         ImageIcon InsertarGenerar = new ImageIcon("maximizar.png");
+         ComprimirButton.setIcon(new ImageIcon(InsertarGenerar.getImage()));
+         ImageIcon IconoI = new ImageIcon("hachis.png");
+         ICONO.setIcon(new ImageIcon(IconoI.getImage()));
+      setLocationRelativeTo(null);
     }
 
     /**
@@ -43,28 +61,37 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         textoObtenidoOriginal = new javax.swing.JTextArea();
-        codificar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         textoObtenidoBits = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         textoObtenidoBytes = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         mostrarCodigo = new java.awt.List();
-        jButton4 = new javax.swing.JButton();
-        codificar1 = new javax.swing.JButton();
-        descomprimir1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        GenerarButton = new javax.swing.JButton();
+        ImportarButton = new javax.swing.JButton();
+        GuardarCodigoButton = new javax.swing.JButton();
+        GuardarCadenaButton = new javax.swing.JButton();
+        DescomprimirButton = new javax.swing.JButton();
+        ComprimirButton = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        ICONO = new javax.swing.JLabel();
 
         jLabel5.setText("jLabel5");
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane4.setViewportView(jTextArea1);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(725, 430));
 
         jButton1.setText("Abrir archivo a comprimir o descomprimir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -77,61 +104,22 @@ public class Main extends javax.swing.JFrame {
         textoObtenidoOriginal.setRows(5);
         jScrollPane1.setViewportView(textoObtenidoOriginal);
 
-        codificar.setText("Comprimir");
-        codificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codificarActionPerformed(evt);
-            }
-        });
-
         textoObtenidoBits.setColumns(20);
         textoObtenidoBits.setRows(5);
+        textoObtenidoBits.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane2.setViewportView(textoObtenidoBits);
 
         textoObtenidoBytes.setColumns(20);
         textoObtenidoBytes.setRows(5);
+        textoObtenidoBytes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane3.setViewportView(textoObtenidoBytes);
 
         jLabel2.setText("Codigo Huffman Actual");
 
-        jButton2.setText("Generar Codigo Huffman");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Importar Codigo Nuevo");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
+        mostrarCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         mostrarCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mostrarCodigoActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("Guardar Codigo Actual");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        codificar1.setText("Guardar Cadena Final");
-        codificar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codificar1ActionPerformed(evt);
-            }
-        });
-
-        descomprimir1.setText("Descomprimir");
-        descomprimir1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                descomprimir1ActionPerformed(evt);
             }
         });
 
@@ -139,15 +127,100 @@ public class Main extends javax.swing.JFrame {
 
         jLabel4.setText("Cadena Final");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        GenerarButton.setText("Generar Codigo Huffman");
+        GenerarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GenerarButtonActionPerformed(evt);
+            }
+        });
+
+        ImportarButton.setText("Importar Codigo Nuevo");
+        ImportarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImportarButtonActionPerformed(evt);
+            }
+        });
+
+        GuardarCodigoButton.setText("Guardar Codigo Actual");
+        GuardarCodigoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarCodigoButtonActionPerformed(evt);
+            }
+        });
+
+        GuardarCadenaButton.setText("Guardar Cadena Final");
+        GuardarCadenaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarCadenaButtonActionPerformed(evt);
+            }
+        });
+
+        DescomprimirButton.setText("Descomprimir");
+        DescomprimirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DescomprimirButtonActionPerformed(evt);
+            }
+        });
+
+        ComprimirButton.setText("Comprimir");
+        ComprimirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComprimirButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(DescomprimirButton, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addComponent(ComprimirButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(GenerarButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(GuardarCadenaButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(GuardarCodigoButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ImportarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(GenerarButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ImportarButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GuardarCodigoButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GuardarCadenaButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DescomprimirButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ComprimirButton)
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 489, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 205, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -155,89 +228,80 @@ public class Main extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(102, 102, 102)
-                .addComponent(jLabel4)
-                .addGap(100, 100, 100)
-                .addComponent(jLabel2)
-                .addGap(42, 42, 42))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(codificar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(12, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel3)
+                                        .addGap(90, 90, 90)
+                                        .addComponent(jLabel4)
+                                        .addGap(57, 57, 57))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(19, 19, 19))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(descomprimir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(codificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(mostrarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ICONO, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)))
+                        .addGap(34, 34, 34)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(168, 168, 168))
+                    .addComponent(mostrarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel2)))
+                .addGap(55, 55, 55))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(codificar1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(descomprimir1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(codificar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(mostrarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane2)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jButton1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 24, Short.MAX_VALUE)
+                                .addComponent(mostrarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(ICONO, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -259,24 +323,28 @@ public class Main extends javax.swing.JFrame {
                 textoObtenidoOriginal.setText(textoOriginal);
                 System.out.println("Archivo de texto cargado correctamente");
                 y=true;
-                descomprimir1.setEnabled(x&&y);
+                DescomprimirButton.setEnabled(x&&y);
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void codificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codificarActionPerformed
+    private void ComprimirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprimirButtonActionPerformed
+        long start = System.currentTimeMillis();
         textoCodificadoBits = codificador.obtenerCadenaBits(textoObtenidoOriginal.getText());
         textoObtenidoBits.setText(textoCodificadoBits);
         textoCodificadoBytes = codificador.obtenerCadenaBytes(textoCodificadoBits);
         textoObtenidoBytes.setText(textoCodificadoBytes);
-        codificar1.setEnabled(true);
+        GuardarCadenaButton.setEnabled(true);
         double original = (double)textoObtenidoOriginal.getText().length();
         double comprimido = (double)textoCodificadoBytes.length();
-        double division = comprimido/original;                
-        JOptionPane.showMessageDialog(null,"El archivo se redujo en un: " + roundDouble(division,2)+"%");
-    }//GEN-LAST:event_codificarActionPerformed
+        double division = comprimido/original;
+        long end = System.currentTimeMillis();
+        long elapsedTime = end - start;
+        JOptionPane.showMessageDialog(null,"El archivo se redujo en un: " + roundDouble(division,2)+"%" + "  Tiempo en en la compresion: " +elapsedTime + " milisegundos");
+        
+    }//GEN-LAST:event_ComprimirButtonActionPerformed
     public static double roundDouble(double value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();
@@ -287,37 +355,37 @@ public class Main extends javax.swing.JFrame {
         long tmp = Math.round(value);
         return (double) tmp / factor;
     }  
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void GenerarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarButtonActionPerformed
         codificador.generarCodigo(textoObtenidoOriginal.getText());
         mostrarListaHuffman();
-        jButton4.setEnabled(true);
+        GuardarCodigoButton.setEnabled(true);
         x=true;
-        descomprimir1.setEnabled(x&&y);
-        codificar.setEnabled(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        DescomprimirButton.setEnabled(x&&y);
+        ComprimirButton.setEnabled(true);
+    }//GEN-LAST:event_GenerarButtonActionPerformed
 
     private void mostrarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_mostrarCodigoActionPerformed
 
-    private void codificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codificar1ActionPerformed
+    private void GuardarCadenaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCadenaButtonActionPerformed
         try {
             codificador.guardarCadena(this.textoCodificadoBytes);
             
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_codificar1ActionPerformed
+    }//GEN-LAST:event_GuardarCadenaButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void GuardarCodigoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCodigoButtonActionPerformed
         try {
             codificador.guardarCodigos();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_GuardarCodigoButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void ImportarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportarButtonActionPerformed
         try {
             JFileChooser fc = new JFileChooser();
             FileNameExtensionFilter filtro = new FileNameExtensionFilter("*data","DATA");
@@ -334,12 +402,12 @@ public class Main extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-        descomprimir1.setEnabled(true);
-        codificar.setEnabled(true);
-        jButton4.setEnabled(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        DescomprimirButton.setEnabled(true);
+        ComprimirButton.setEnabled(true);
+        GuardarCodigoButton.setEnabled(true);
+    }//GEN-LAST:event_ImportarButtonActionPerformed
         
-    private void descomprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descomprimir1ActionPerformed
+    private void DescomprimirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescomprimirButtonActionPerformed
         try {
             textoDesCodificadoBits = codificador.descomprimirABits(ruta);
         } catch (IOException ex) {
@@ -348,8 +416,8 @@ public class Main extends javax.swing.JFrame {
         textoObtenidoBits.setText(textoDesCodificadoBits);
         textoDesCodificadoBytes = codificador.descomprimirABytes(textoDesCodificadoBits);
         textoObtenidoBytes.setText(textoDesCodificadoBytes);
-        codificar1.setEnabled(true);
-    }//GEN-LAST:event_descomprimir1ActionPerformed
+        GuardarCadenaButton.setEnabled(true);
+    }//GEN-LAST:event_DescomprimirButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -389,21 +457,25 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton codificar;
-    private javax.swing.JButton codificar1;
-    private javax.swing.JButton descomprimir1;
+    private javax.swing.JButton ComprimirButton;
+    private javax.swing.JButton DescomprimirButton;
+    private javax.swing.JButton GenerarButton;
+    private javax.swing.JButton GuardarCadenaButton;
+    private javax.swing.JButton GuardarCodigoButton;
+    private javax.swing.JLabel ICONO;
+    private javax.swing.JButton ImportarButton;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextArea jTextArea1;
     private java.awt.List mostrarCodigo;
     private javax.swing.JTextArea textoObtenidoBits;
     private javax.swing.JTextArea textoObtenidoBytes;
