@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -248,8 +249,21 @@ public class Main extends javax.swing.JFrame {
         textoCodificadoBytes = codificador.obtenerCadenaBytes(textoCodificadoBits);
         textoObtenidoBytes.setText(textoCodificadoBytes);
         codificar1.setEnabled(true);
+        double original = (double)textoObtenidoOriginal.getText().length();
+        double comprimido = (double)textoCodificadoBytes.length();
+        double division = comprimido/original;                
+        JOptionPane.showMessageDialog(null,"El archivo se redujo en un: " + roundDouble(division,2)+"%");
     }//GEN-LAST:event_codificarActionPerformed
+    public static double roundDouble(double value, int places) {
+        if (places < 0) {
+            throw new IllegalArgumentException();
+        }
 
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }  
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         codificador.generarCodigo(textoObtenidoOriginal.getText());
         mostrarListaHuffman();
@@ -301,7 +315,7 @@ public class Main extends javax.swing.JFrame {
         codificar.setEnabled(true);
         jButton4.setEnabled(true);
     }//GEN-LAST:event_jButton3ActionPerformed
-
+        
     private void descomprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descomprimir1ActionPerformed
         try {
             textoDesCodificadoBits = codificador.descomprimirABits(ruta);
